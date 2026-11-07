@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#101820">
+<title>Wrench | Mechanic Toolbox</title>
+<style>
+:root{--bg:#0b1117;--panel:#121c26;--panel2:#172330;--line:#293847;--text:#edf3f8;--muted:#9bafbf;--accent:#f3a712;--accent2:#ffcc55;--good:#6fd2a0;--warn:#ffd16b;--bad:#ff8b8b;--radius:16px}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#0b1117,#101923 50%,#0b1117);color:var(--text);font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
+a{color:#8ecbff}button,input,select,textarea{font:inherit}button{cursor:pointer}
+.app{max-width:1100px;margin:auto;padding:16px 16px calc(34px + env(safe-area-inset-bottom))}
+header{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:10px 0 18px}
+.brand{display:flex;align-items:center;gap:12px}.logo{width:46px;height:46px;border-radius:14px;background:var(--accent);color:#101820;display:grid;place-items:center;font-size:26px;font-weight:900;box-shadow:0 5px 24px #f3a71230}
+h1{font-size:25px;line-height:1.05;margin:0;letter-spacing:-.5px} .sub{color:var(--muted);font-size:12px;margin-top:4px}
+.tag{border:1px solid #3a4c5d;border-radius:99px;padding:6px 10px;color:var(--muted);font-size:11px;font-weight:700;letter-spacing:.07em}
+.hero{border:1px solid var(--line);border-radius:var(--radius);background:linear-gradient(135deg,#182635,#121b25);padding:16px;margin-bottom:14px}
+.hero-top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px}.hero h2{margin:0;font-size:16px}.hero p{margin:4px 0 0;color:var(--muted);font-size:12px}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.field label{display:block;color:var(--muted);font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin:0 0 5px}
+input,select,textarea{width:100%;color:var(--text);background:#0b131c;border:1px solid #344657;border-radius:10px;padding:10px 11px;outline:none}
+input:focus,select:focus,textarea:focus{border-color:var(--accent);box-shadow:0 0 0 2px #f3a71220}
+textarea{min-height:110px;resize:vertical}
+.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.btn{border:1px solid #405467;background:#1a2937;color:var(--text);padding:9px 12px;border-radius:10px;font-weight:700;font-size:13px}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#151b20}.btn:hover{filter:brightness(1.08)}.btn:disabled{opacity:.45;cursor:not-allowed}
+.notice{background:#192431;border:1px solid #354658;border-radius:12px;color:var(--muted);padding:10px 12px;font-size:12px;margin-top:10px}
+.notice.warn{border-color:#66502b;color:#f2d08a;background:#2a2114}
+.tabs{display:flex;gap:8px;overflow:auto;padding:3px 0 12px;scrollbar-width:thin}
+.tab{white-space:nowrap;border:1px solid var(--line);background:#111a23;color:var(--muted);padding:10px 14px;border-radius:11px;font-weight:800;font-size:13px}
+.tab.active{background:var(--accent);color:#141b22;border-color:var(--accent)}
+.pane{display:none}.pane.active{display:block}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:16px;margin-bottom:12px}
+.card h2{font-size:18px;margin:0 0 6px}.card h3{font-size:14px;margin:16px 0 6px}.lede{color:var(--muted);font-size:12px;margin:0 0 14px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}.three{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.result{white-space:pre-wrap;background:#0b131c;border:1px solid #2b3b4a;border-radius:12px;padding:12px;margin-top:12px;min-height:30px;color:#dce8f1;font-size:13px}
+.result:empty{display:none}.list{display:grid;gap:8px}.entry{background:#0e1720;border:1px solid #2a3a49;border-radius:12px;padding:12px}.entry strong{display:block;margin-bottom:4px}.entry p{margin:0;color:var(--muted);font-size:13px}
+details{background:#0e1720;border:1px solid #2a3a49;border-radius:12px;padding:12px;margin:8px 0}summary{cursor:pointer;font-weight:800}details .entry{margin-top:9px}
+.small{font-size:11px;color:var(--muted)}.split{display:flex;align-items:center;justify-content:space-between;gap:10px}
+footer{padding:18px 2px;color:#75899a;font-size:11px}
+@media(max-width:720px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.two{grid-template-columns:1fr}.three{grid-template-columns:1fr 1fr}.tag{display:none}.app{padding:12px 12px 28px}h1{font-size:23px}}
+@media(max-width:400px){.grid{grid-template-columns:1fr 1fr}.btn{padding:9px 10px}}
+</style>
+</head>
+<body><div class="app">
+<header><div class="brand"><div class="logo">W</div><div><h1>WRENCH</h1><div class="sub">MECHANIC TOOLBOX · BUILD 2.0</div></div></div><span class="tag">TECHNICIAN WORKSPACE</span></header>
+
+<section class="hero">
+<div class="hero-top"><div><h2>Vehicle workspace</h2><p>Choose a vehicle. Tool views use this selection as context.</p></div><span id="connection" class="tag">LOCAL TOOL</span></div>
+<div class="grid">
+<div class="field"><label for="year">Model year</label><select id="year"><option value="">Select year</option></select></div>
+<div class="field"><label for="make">Make</label><select id="make"><option value="">Select make</option></select></div>
+<div class="field"><label for="model">Model</label><select id="model" disabled><option value="">Select make first</option></select></div>
+<div class="field"><label for="engine">Engine / RPO / engine code</label><input id="engine" placeholder="e.g. 4.6L 2V / VIN 8th digit"></div>
+</div>
+<div class="grid" style="margin-top:10px;grid-template-columns:1fr 2fr">
+<div class="field"><label for="vin">VIN (optional)</label><input id="vin" maxlength="17" placeholder="17-character VIN"></div>
+<div class="field"><label for="vehicleStatus">Vehicle context status</label><input id="vehicleStatus" readonly value="Choose year, make, and model"></div>
+</div>
+<div class="actions"><button class="btn primary" id="decodeVin">Decode VIN (NHTSA)</button><button class="btn" id="checkRecall">Check recalls</button><button class="btn" id="checkComplaint">Check complaints</button><button class="btn" id="resetVehicle">Clear vehicle</button></div>
+<div id="vehicleMessage" class="notice">Make/model lists begin from an embedded catalog. For 1996+ vehicles, app may refresh the model list from NHTSA vPIC when online. vPIC provides basic manufacturer-reported vehicle data—not repair specs.</div>
+<div id="vehicleResult" class="result"></div>
+</section>
+
+<nav class="tabs" aria-label="Tool sections">
+<button class="tab active" data-pane="dtc">DTC lookup</button><button class="tab" data-pane="diagnostics">Diagnostic workflow</button><button class="tab" data-pane="service">Service data notebook</button><button class="tab" data-pane="notes">Job notes</button><button class="tab" data-pane="library">Knowledge library</button>
+</nav>
+
+<section id="dtc" class="pane active">
+<div class="card"><h2>Diagnostic trouble code lookup</h2><p class="lede">Small built-in sample set. Descriptions and direction are generic and must be confirmed against OEM information for the selected vehicle.</p>
+<div class="two"><div class="field"><label for="codeSystem">Code family</label><select id="codeSystem"><option value="">All sample codes</option><option value="P">Powertrain (P)</option><option value="B">Body (B)</option><option value="C">Chassis (C)</option><option value="U">Network (U)</option></select></div><div class="field"><label for="code">Enter DTC</label><input id="code" autocapitalize="characters" placeholder="e.g. P0301"></div></div>
+<div class="actions"><button class="btn primary" id="lookupCode">Look up code</button><button class="btn" id="selectCode">Choose from sample list</button></div><div id="codeSelectWrap" hidden class="field" style="margin-top:10px"><label for="codeChoice">Sample DTCs</label><select id="codeChoice"></select></div>
+<div id="codeResult" class="result" aria-live="polite"></div></div>
+</section>
+
+<section id="diagnostics" class="pane">
+<div class="card"><h2>Diagnostic workflow builder</h2><p class="lede">Build a structured checklist from the complaint. This creates a workflow—not an automatic diagnosis.</p>
+<div class="two"><div class="field"><label for="system">System</label><select id="system"><option>Engine / performance</option><option>Cooling system</option><option>Electrical / charging</option><option>Starting</option><option>Transmission / driveline</option><option>Brakes / ABS</option><option>HVAC</option><option>Suspension / steering</option><option>Network / communication</option><option>ADAS</option><option>Hybrid / EV</option><option>Other</option></select></div><div class="field"><label for="condition">When does it occur?</label><select id="condition"><option>All conditions / unknown</option><option>Cold start</option><option>Hot / after warm-up</option><option>Idle</option><option>Under load / acceleration</option><option>At road speed</option><option>Intermittent / random</option><option>After repair / service</option></select></div></div>
+<div class="field"><label for="complaint">Customer complaint / observed symptom</label><textarea id="complaint" placeholder="Concern, conditions, symptoms, codes, tests already performed…"></textarea></div>
+<div class="actions"><button class="btn primary" id="buildWorkflow">Build checklist</button><button class="btn" id="copyWorkflow">Copy checklist</button><button class="btn" id="saveWorkflow">Save to job notes</button></div>
+<div id="workflowResult" class="result" aria-live="polite"></div></div>
+</section>
+
+<section id="service" class="pane">
+<div class="card"><h2>Vehicle service data notebook</h2><p class="lede">Record verified specifications you looked up from OEM or licensed service information. Wrench does not invent torque values or fluid capacities.</p>
+<div class="grid"><div class="field"><label for="specCategory">Category</label><select id="specCategory"></select></div><div class="field"><label for="specName">Specification item</label><select id="specName"></select></div><div class="field"><label for="specValue">Verified value</label><input id="specValue" placeholder="Exact value / procedure summary"></div><div class="field"><label for="specUnit">Unit / notes</label><input id="specUnit" placeholder="Nm, lb-ft, L, PSI…"></div></div>
+<div class="field" style="margin-top:10px"><label for="specSource">Source (required to save)</label><input id="specSource" placeholder="OEM service manual section, licensed database, TSB number"></div>
+<div class="actions"><button class="btn primary" id="saveSpec">Save verified spec</button><button class="btn" id="searchSpecLinks">Open service source links</button></div><div id="specResult" class="result"></div>
+<h3>Saved specs for this vehicle</h3><div id="specRecords" class="list"></div></div>
+</section>
+
+<section id="notes" class="pane">
+<div class="card"><h2>Job notes</h2><p class="lede">Notes are saved in local browser storage on this device. Export regularly; browser data can be cleared.</p>
+<div class="two"><div class="field"><label for="noteTitle">RO / note title</label><input id="noteTitle" placeholder="RO number or short job title"></div><div class="field"><label for="noteCategory">Category</label><select id="noteCategory"><option>Diagnostic</option><option>Repair</option><option>Inspection</option><option>Customer concern</option><option>General shop note</option></select></div></div>
+<div class="field" style="margin-top:10px"><label for="noteText">Notes</label><textarea id="noteText" placeholder="Record findings, measurements, parts, and verification…"></textarea></div>
+<div class="actions"><button class="btn primary" id="saveNote">Save note</button><button class="btn" id="exportNotes">Export notes & specs (JSON)</button><button class="btn" id="clearNotes">Clear editor</button></div><div id="noteResult" class="result"></div>
+<h3>Saved notes</h3><div id="noteRecords" class="list"></div></div>
+</section>
+
+<section id="library" class="pane">
+<div class="card"><h2>Search mechanic knowledge library</h2><p class="lede">General shop reference topics. Use OEM procedures for exact vehicle steps, limits, and specifications.</p><div class="field"><label for="librarySearch">Search topics</label><input id="librarySearch" type="search" placeholder="voltage drop, overheating, misfire, ADAS…"></div><div id="libraryResults" class="list" style="margin-top:10px"></div></div>
+<div class="card"><h2>Reference source directory</h2><p class="lede">Sources have distinct coverage. Government safety/vehicle datasets do not equal factory repair procedures.</p>
+<div class="list">
+<div class="entry"><strong>NHTSA vPIC — vehicle identification / VIN decode</strong><p>Manufacturer-submitted basic vehicle information, make/model and VIN decode. Not service manuals.</p><a href="https://vpic.nhtsa.dot.gov/api/" target="_blank" rel="noopener">Open vPIC API</a></div>
+<div class="entry"><strong>NHTSA recalls, investigations & complaints</strong><p>Public safety records. Year/make/model lookup is general; VIN recall results are the way to check a specific vehicle's unrepaired recalls where coverage applies.</p><a href="https://www.nhtsa.gov/recalls" target="_blank" rel="noopener">NHTSA recalls</a></div>
+<div class="entry"><strong>ALLDATA Repair</strong><p>Commercial OEM repair data including procedures, specifications, TSBs, DTCs and wiring diagrams; access requires subscription.</p><a href="https://www.alldata.com/us/en/repair" target="_blank" rel="noopener">ALLDATA Repair</a></div>
+<div class="entry"><strong>Mitchell 1 ProDemand</strong><p>Commercial repair information, diagnostics, estimating and expert-based fixes; access requires subscription.</p><a href="https://mitchell1.com/home/repair-information/" target="_blank" rel="noopener">Mitchell 1</a></div>
+<div class="entry"><strong>OEM service portals</strong><p>For torque specs, procedures, calibration, fluid capacity, connector pinouts and exact repair operations, use the manufacturer portal or an authorized licensed service-information provider.</p><a href="https://oem1stop.com/" target="_blank" rel="noopener">OEM1Stop portal directory</a></div>
+</div></div>
+</section>
+<footer>Wrench Toolbox prototype · Offline features run in the browser. Online NHTSA lookups require connectivity. Verify critical specs and repair steps against VIN/configuration-specific OEM service information. Not a substitute for shop safety procedures.</footer>
+</div>
+
+<script>
+const VEHICLE_MODELS={"Acura": ["CL", "ILX", "Integra", "MDX", "NSX", "RDX", "RL", "RLX", "TL", "TLX", "TSX", "ZDX", "Other / not listed"], "Alfa Romeo": ["Giulia", "Stelvio", "Tonale", "4C", "Other / not listed"], "Audi": ["A3", "A4", "A5", "A6", "A7", "A8", "Q3", "Q5", "Q7", "Q8", "S models", "Other / not listed"], "BMW": ["2 Series", "3 Series", "4 Series", "5 Series", "6 Series", "7 Series", "8 Series", "X1", "X3", "X4", "X5", "X6", "X7", "Z4", "Other / not listed"], "Buick": ["Enclave", "Encore", "Encore GX", "Envision", "LaCrosse", "LeSabre", "Lucerne", "Regal", "Verano", "Other / not listed"], "Cadillac": ["ATS", "CT4", "CT5", "CTS", "DeVille", "DTS", "Escalade", "SRX", "XT4", "XT5", "XT6", "XTS", "Other / not listed"], "Chevrolet": ["Blazer", "Camaro", "Colorado", "Corvette", "Cruze", "Equinox", "Express", "Impala", "Malibu", "Silverado 1500", "Silverado 2500HD", "Silverado 3500HD", "Sonic", "Tahoe", "Trailblazer", "Traverse", "Trax", "Other / not listed"], "Chrysler": ["200", "300", "Pacifica", "PT Cruiser", "Town & Country", "Voyager", "Other / not listed"], "Dodge": ["Avenger", "Caliber", "Challenger", "Charger", "Durango", "Grand Caravan", "Journey", "Ram 1500", "Other / not listed"], "Ford": ["Bronco", "Bronco Sport", "E-Series", "Edge", "Escape", "Expedition", "Explorer", "F-150", "F-250 Super Duty", "F-350 Super Duty", "Fiesta", "Flex", "Focus", "Fusion", "Maverick", "Mustang", "Ranger", "Taurus", "Transit", "Other / not listed"], "Genesis": ["G70", "G80", "G90", "GV60", "GV70", "GV80", "Other / not listed"], "GMC": ["Acadia", "Canyon", "Savana", "Sierra 1500", "Sierra 2500HD", "Sierra 3500HD", "Terrain", "Yukon", "Other / not listed"], "Honda": ["Accord", "Civic", "CR-V", "CR-Z", "Element", "Fit", "HR-V", "Insight", "Odyssey", "Passport", "Pilot", "Ridgeline", "Other / not listed"], "Hyundai": ["Accent", "Elantra", "Ioniq", "Kona", "Santa Cruz", "Santa Fe", "Sonata", "Tucson", "Veloster", "Venue", "Other / not listed"], "Infiniti": ["EX", "FX", "G", "JX", "M", "Q50", "Q60", "QX50", "QX60", "QX80", "Other / not listed"], "Jaguar": ["E-Pace", "F-Pace", "F-Type", "I-Pace", "XE", "XF", "XJ", "Other / not listed"], "Jeep": ["Cherokee", "Compass", "Gladiator", "Grand Cherokee", "Grand Wagoneer", "Renegade", "Wrangler", "Other / not listed"], "Kia": ["Carnival", "Forte", "K5", "Optima", "Rio", "Seltos", "Sorento", "Soul", "Sportage", "Telluride", "Other / not listed"], "Land Rover": ["Defender", "Discovery", "Discovery Sport", "LR2", "LR3", "LR4", "Range Rover", "Range Rover Evoque", "Range Rover Sport", "Other / not listed"], "Lexus": ["ES", "GS", "GX", "IS", "LC", "LS", "LX", "NX", "RC", "RX", "UX", "Other / not listed"], "Lincoln": ["Aviator", "Corsair", "MKC", "MKS", "MKX", "MKZ", "Navigator", "Town Car", "Other / not listed"], "Mazda": ["CX-3", "CX-30", "CX-5", "CX-50", "CX-7", "CX-9", "Mazda2", "Mazda3", "Mazda5", "Mazda6", "MX-5 Miata", "Other / not listed"], "Mercedes-Benz": ["A-Class", "C-Class", "CLA", "CLS", "E-Class", "GLA", "GLB", "GLC", "GLE", "GLS", "M-Class", "S-Class", "Sprinter", "Other / not listed"], "Mercury": ["Cougar", "Grand Marquis", "Mariner", "Milan", "Mountaineer", "Sable", "Villager", "Other / not listed"], "Mitsubishi": ["Eclipse", "Eclipse Cross", "Galant", "Lancer", "Mirage", "Outlander", "Outlander Sport", "Other / not listed"], "Nissan": ["Altima", "Armada", "Frontier", "Juke", "Maxima", "Murano", "Pathfinder", "Rogue", "Sentra", "Titan", "Versa", "Other / not listed"], "Ram": ["1500", "2500", "3500", "ProMaster", "Other / not listed"], "Subaru": ["Ascent", "BRZ", "Crosstrek", "Forester", "Impreza", "Legacy", "Outback", "WRX", "Other / not listed"], "Tesla": ["Model 3", "Model S", "Model X", "Model Y", "Cybertruck", "Other / not listed"], "Toyota": ["4Runner", "Avalon", "Camry", "Corolla", "Highlander", "Land Cruiser", "Prius", "RAV4", "Sequoia", "Sienna", "Tacoma", "Tundra", "Venza", "Other / not listed"], "Volkswagen": ["Atlas", "Beetle", "CC", "Golf", "GTI", "Jetta", "Passat", "Taos", "Tiguan", "Touareg", "Other / not listed"], "Volvo": ["C30", "S60", "S80", "S90", "V60", "V70", "V90", "XC40", "XC60", "XC90", "Other / not listed"], "Other": ["Other / not listed"]};
+const DTC_SAMPLE={"P0300": ["Random/multiple cylinder misfire detected", "Inspect stored freeze-frame data; check ignition, fuel delivery, air leaks, compression, and wiring. Identify which cylinders are misfiring before replacing parts."], "P0301": ["Cylinder 1 misfire detected", "Check cylinder 1 plug, coil, injector control, compression, and related wiring. Swap components only as a diagnostic test where appropriate."], "P0304": ["Cylinder 4 misfire detected", "Check cylinder 4 ignition components, injector operation, compression/leak-down, and wiring. Review freeze-frame and misfire counters."], "P0171": ["System too lean (Bank 1)", "Check intake/vacuum leaks, MAF readings, fuel trims, fuel pressure/delivery, and exhaust leaks upstream of the sensor."], "P0420": ["Catalyst system efficiency below threshold (Bank 1)", "Check for exhaust leaks, misfires, fuel-control issues, and upstream/downstream O2 sensor data before condemning the catalyst."], "P0455": ["EVAP system large leak detected", "Inspect fuel cap/seal if applicable, EVAP hoses, purge/vent valves, and perform a smoke test following service procedure."], "P0128": ["Coolant thermostat temperature below regulating temperature", "Verify coolant level, sensor readings, warm-up behavior, and thermostat operation; confirm vehicle-specific strategy."], "P1299": ["Cylinder head overtemperature protection active (Ford-specific commonly)", "Treat as an overheat event. Check coolant level/leaks, cooling fan operation, thermostat, radiator flow, and sensor data; do not continue driving if overheating."]};
+const SPEC_CATEGORIES={"Engine oil & filter": ["Oil grade / viscosity", "Oil capacity with filter", "Oil filter part number", "Drain plug torque", "Oil life reset procedure"], "Transmission fluid & capacity": ["Fluid type", "Fluid capacity", "Pan / filter service", "Fill level procedure", "Drain plug torque"], "Coolant & cooling system": ["Coolant specification", "Cooling system capacity", "Thermostat specification", "Pressure test specification", "Bleeding procedure"], "Torque specifications": ["Wheel lug torque", "Spark plug torque", "Valve cover torque", "Intake manifold torque", "Brake caliper torque", "Suspension fastener torque", "Engine mount torque"], "Brake system": ["Brake fluid type", "Bleeding sequence", "Rotor minimum thickness", "Pad service procedure", "Parking brake adjustment"], "Suspension & steering": ["Alignment specs", "Tie rod torque", "Ball joint torque", "Control arm torque", "Power steering fluid"], "Electrical / wiring": ["Connector pinout", "Ground locations", "Voltage reference", "Circuit test", "Wiring diagram"], "Fuses & relays": ["Fuse box location", "Fuse amperage / circuit", "Relay identification"], "Maintenance intervals": ["Oil service interval", "Transmission service interval", "Spark plug interval", "Coolant service interval", "Timing belt interval", "Severe duty schedule"], "Labor time / book time": ["Repair labor operation", "R&R labor time", "Diagnostic labor time", "Warranty labor operation"], "HVAC / refrigerant": ["Refrigerant type", "Refrigerant charge amount", "Oil type / amount", "A/C pressure reference"], "Tire pressure & wheel specs": ["Tire pressure placard", "Wheel bolt pattern", "Wheel offset", "Lug torque", "Tire size"], "Timing / engine mechanical": ["Timing marks / procedure", "Compression specification", "Cylinder leak-down guidance", "Valve clearance"], "Other service data": ["Custom service-data lookup"]};
+const REF_TOPICS=[
+["Diagnostic workflow","Confirm customer concern; reproduce safely; record all-module scan, DTC status and freeze-frame before clearing; inspect basics; test hypotheses with measurement; prove root cause; repair using OEM procedure; verify under matching conditions and post-scan."],
+["Voltage drop — feed side","Test the power path with the circuit operating under load. Measure from battery positive to the component feed. Split the path into segments to isolate excessive resistance. Compare against OEM limits; no universal limit substitutes for service data."],
+["Voltage drop — ground side","Measure from component ground to battery negative while operating under load. Check ground eyelets, corrosion, fasteners and shared returns. A continuity beep alone cannot prove a ground is adequate under load."],
+["Parasitic draw","Verify battery condition, then let modules sleep for the vehicle-specific time. Use a current clamp or correctly fused meter method; avoid waking modules. Isolate circuits and compare to OEM specification."],
+["Misfire diagnosis","Record cylinder/counter, operating conditions and freeze frame. Evaluate ignition, injector operation, air leaks, compression/leak-down, valve timing, fuel delivery and wiring. A misfire code does not identify the failed component by itself."],
+["Overheating","Never open a hot pressurized cooling system. Assess coolant level/leaks, pressure integrity, fan operation, thermostat behavior, airflow/flow, pump drive, sensor plausibility and specified air purge. Use appropriate combustion leak tests when warranted."],
+["Cooling system pressure test","Use the exact cap/system test pressure. Never exceed it. Inspect external leaks and pressure decay; check cap separately. Internal leakage may need additional diagnostic tests."],
+["Brake hydraulic service","Use exact fluid spec, OEM bleed sequence and procedure. Determine whether ABS automated bleeding or electronic parking brake service mode applies. Contamination requires vehicle-specific corrective steps."],
+["Fastener torque","Use OEM torque, thread condition, lubrication guidance, tightening sequence and angle. Torque-to-yield or single-use fasteners may require replacement. Avoid universal torque tables for critical components."],
+["CAN network","Use OEM topology and scan status. Check module power/grounds/connectors first. Network resistance testing depends on network architecture and module state; use proper high-impedance tools, never a test lamp on data lines."],
+["Fuel trim interpretation","Compare STFT/LTFT at idle and elevated RPM in controlled conditions. Positive correction may suggest unmetered air, fuel delivery, exhaust leak or biased data; negative correction may suggest excess fuel or biased inputs. Confirm with vehicle strategy and limits."],
+["Hybrid / EV high voltage","HV work is for trained personnel. Follow the exact vehicle disable, wait, verify-zero-voltage, PPE, insulated-tool and re-enable procedure. Never infer cable state by color alone or bypass interlocks."],
+["ADAS calibration","Identify OEM-required static/dynamic calibration. Follow requirements for targets, floor, lighting, tire pressure, alignment, ride height, vehicle load and scan-tool prerequisites. Document successful calibration and post-scan."],
+["HVAC refrigerant","Use refrigerant type and charge mass from vehicle label/OEM data. Recover with approved equipment; do not vent or mix refrigerants. Separate airflow, heat transfer, control, sensor and compressor command faults."],
+["Service data validation","Prioritize OEM service info for the exact VIN/configuration; then authorized licensed service-data providers. Record source, document number, applicability and revision for saved specifications."]
+];
+
+const $=id=>document.getElementById(id);
+const store={notes:"wrenchV2Notes",specs:"wrenchV2Specs"};
+function readStore(key){try{return JSON.parse(localStorage.getItem(key)||"[]")}catch(e){return []}}
+function writeStore(key,val){try{localStorage.setItem(key,JSON.stringify(val));return true}catch(e){return false}}
+function addOptions(select,values,placeholder){select.innerHTML="";let first=document.createElement("option");first.value="";first.textContent=placeholder;select.appendChild(first);values.forEach(v=>{let o=document.createElement("option");o.value=v;o.textContent=v;select.appendChild(o)})}
+function context(){return [ $("year").value,$("make").value,$("model").value,$("engine").value.trim()].filter(Boolean).join(" ")}
+function updateContext(){const v=context();$("vehicleStatus").value=v||"Choose year, make, and model";renderSpecs()}
+function resetVehicle(){["year","make","model"].forEach(id=>$(id).value="");$("engine").value="";$("vin").value="";addOptions($("model"),[],"Select make first");$("model").disabled=true;updateContext();$("vehicleResult").textContent="Vehicle selection cleared."}
+function selectPane(id){document.querySelectorAll(".tab").forEach(b=>b.classList.toggle("active",b.dataset.pane===id));document.querySelectorAll(".pane").forEach(p=>p.classList.toggle("active",p.id===id))}
+document.querySelectorAll(".tab").forEach(b=>b.addEventListener("click",()=>selectPane(b.dataset.pane)));
+addOptions($("year"),Array.from({length:47},(_,i)=>String(2026-i)),"Select year");
+addOptions($("make"),Object.keys(VEHICLE_MODELS).sort(),"Select make");
+addOptions($("model"),[],"Select make first");
+$("year").addEventListener("change",()=>{if($("make").value)refreshModels();else updateContext()});
+$("make").addEventListener("change",refreshModels);
+$("model").addEventListener("change",updateContext);
+$("engine").addEventListener("change",updateContext);
+$("resetVehicle").addEventListener("click",resetVehicle);
+
+async function fetchJSON(url){const r=await fetch(url);if(!r.ok)throw new Error("HTTP "+r.status);return r.json()}
+async function refreshModels(){
+ const year=$("year").value,make=$("make").value;
+ const modelSelect=$("model");
+ if(!make){addOptions(modelSelect,[],"Select make first");modelSelect.disabled=true;updateContext();return}
+ // Populate the make-specific embedded catalog immediately so the selector is usable offline.
+ const fallback=VEHICLE_MODELS[make]||["Other / not listed"];
+ const previous=modelSelect.value;
+ addOptions(modelSelect,fallback,"Select "+make+" model");modelSelect.disabled=false;
+ if(fallback.includes(previous))modelSelect.value=previous;
+ $("vehicleMessage").textContent="Model options limited to "+make+". Showing embedded catalog now; attempting NHTSA year-specific refresh if online. Engine/trim fitment is not inferred.";
+ updateContext();
+ if(year&&Number(year)>=1996){
+   try{
+    const data=await fetchJSON("https://vpic.nhtsa.dot.gov/api/vehicles/GetModelsForMakeYear/make/"+encodeURIComponent(make)+"/modelyear/"+encodeURIComponent(year)+"?format=json");
+    const fromApi=[...new Set((data.Results||[]).map(x=>x.Model_Name).filter(Boolean))].sort();
+    if(fromApi.length){
+      const selected=modelSelect.value;
+      addOptions(modelSelect,fromApi,"Select "+make+" model");
+      if(fromApi.includes(selected))modelSelect.value=selected;
+      $("vehicleMessage").textContent="Model options limited to "+make+" for model year "+year+", refreshed from NHTSA vPIC. vPIC may omit some variants and does not identify engine/trim fitment.";
+      updateContext();
+    }
+   }catch(e){
+    $("vehicleMessage").textContent="Model options limited to "+make+" from the embedded catalog. NHTSA refresh did not connect; selector remains usable offline.";
+   }
+ }
+}
+function vehicleRequired(){if(!$("year").value||!$("make").value||!$("model").value)throw new Error("Choose year, make, and model first.");return {year:$("year").value,make:$("make").value,model:$("model").value,engine:$("engine").value}}
+$("decodeVin").addEventListener("click",async()=>{
+ const vin=$("vin").value.trim().toUpperCase(),out=$("vehicleResult");
+ if(!/^[A-HJ-NPR-Z0-9]{17}$/.test(vin)){out.textContent="Enter a valid 17-character VIN (excluding I, O, Q).";return}
+ out.textContent="Decoding VIN through NHTSA vPIC…";
+ try{
+  const data=await fetchJSON("https://vpic.nhtsa.dot.gov/api/vehicles/DecodeVinValuesExtended/"+encodeURIComponent(vin)+"?format=json");
+  const r=(data.Results||[])[0]||{};
+  const y=String(r.ModelYear||""),m=String(r.Make||""),mo=String(r.Model||"");
+  if(y&&[...$("year").options].some(o=>o.value===y)) $("year").value=y;
+  let matchingMake=[...$("make").options].find(o=>o.value.toLowerCase()===m.toLowerCase());
+  if(matchingMake){$("make").value=matchingMake.value;await refreshModels();let found=[...$("model").options].find(o=>o.text.toLowerCase()===mo.toLowerCase()||o.value.toLowerCase()===mo.toLowerCase());if(found)$("model").value=found.value}
+  updateContext();
+  out.textContent="NHTSA vPIC decode result\\nYear: "+(r.ModelYear||"not returned")+"\\nMake: "+(r.Make||"not returned")+"\\nModel: "+(r.Model||"not returned")+"\\nBody class: "+(r.BodyClass||"not returned")+"\\nEngine: "+(r.EngineModel||r.DisplacementL||"not returned")+"\\n\\nDecoder output is manufacturer-submitted identification data; confirm VIN-specific configuration through OEM information.";
+ }catch(e){out.textContent="VIN decode failed: "+e.message+". Check connectivity and try again."}
+});
+async function nhtsaLookup(type){
+ const out=$("vehicleResult");try{const v=vehicleRequired();out.textContent="Querying NHTSA "+type+"…";
+ const endpoint=type==="recalls"?"recalls/recallsByVehicle":"complaints/complaintsByVehicle";
+ const data=await fetchJSON("https://api.nhtsa.gov/"+endpoint+"?make="+encodeURIComponent(v.make)+"&model="+encodeURIComponent(v.model)+"&modelYear="+encodeURIComponent(v.year));
+ const results=data.results||data.Results||[];
+ if(!results.length){out.textContent="NHTSA returned no "+type+" records for "+v.year+" "+v.make+" "+v.model+". This does not prove absence of all campaigns or vehicle-specific unrepaired recalls.";return}
+ if(type==="recalls")out.textContent=results.slice(0,40).map((r,i)=>`${i+1}. ${r.NHTSA_CAMPAIGN_NUMBER||r.nhtsaCampaignNumber||r.CampaignNumber||"Campaign"} — ${r.Component||r.component||"Component not stated"}\\n${r.Summary||r.summary||"Summary not returned"}\\nRemedy: ${r.Remedy||r.remedy||"Consult campaign details"}`).join("\\n\\n")+"\\n\\nShowing up to 40. Year/make/model results are general recall records; check VIN for vehicle-specific unrepaired recall status.";
+ else out.textContent=results.slice(0,40).map((r,i)=>`${i+1}. ${r.dateComplaintFiled||r.DateComplaintFiled||r.dateOfIncident||"Date not returned"} — ${r.component||r.Component||"Component not stated"}\\n${r.summary||r.Summary||r.description||"Description not returned"}`).join("\\n\\n")+"\\n\\nShowing up to 40 public complaints. Complaints are reports, not confirmed diagnoses.";
+ }catch(e){out.textContent="NHTSA lookup error: "+e.message+"\\nCheck internet connection and selected vehicle."}
+}
+$("checkRecall").addEventListener("click",()=>nhtsaLookup("recalls"));$("checkComplaint").addEventListener("click",()=>nhtsaLookup("complaints"));
+
+$("codeSystem").innerHTML='<option value="">All sample codes</option><option value="P">Powertrain (P)</option><option value="B">Body (B)</option><option value="C">Chassis (C)</option><option value="U">Network / communication (U)</option>';
+function populateDtc(){const family=$("codeSystem").value;const select=$("codeChoice");addOptions(select,Object.keys(DTC_SAMPLE).filter(c=>!family||c.startsWith(family)).sort(),"Select sample DTC")}
+$("codeSystem").addEventListener("change",populateDtc);populateDtc();
+$("selectCode").addEventListener("click",()=>{$("codeSelectWrap").hidden=!$("codeSelectWrap").hidden;populateDtc()});
+$("codeChoice").addEventListener("change",()=>{$("code").value=$("codeChoice").value});
+$("lookupCode").addEventListener("click",()=>{
+ const c=$("code").value.trim().toUpperCase(),r=DTC_SAMPLE[c];
+ if(!c){$("codeResult").textContent="Enter a DTC first.";return}
+ if(r)$("codeResult").textContent=c+" — "+r[0]+"\\n\\nGeneral diagnostic direction:\\n"+r[1]+"\\n\\nCode description is sample reference data. Confirm exact OEM definition, enable criteria, and diagnostic procedure.";
+ else $("codeResult").textContent=c+" is not in this small built-in sample. Do not infer a part from the code. Retrieve the exact definition and OEM diagnostic tree from vehicle-specific service information.";
+});
+
+addOptions($("specCategory"),Object.keys(SPEC_CATEGORIES),"Choose category");
+$("specCategory").addEventListener("change",()=>addOptions($("specName"),SPEC_CATEGORIES[$("specCategory").value]||[],"Choose spec item"));
+$("saveSpec").addEventListener("click",()=>{
+ let vehicle=context(),name=$("specName").value,value=$("specValue").value.trim(),unit=$("specUnit").value.trim(),source=$("specSource").value.trim();
+ if(!vehicle){$("specResult").textContent="Select the vehicle context before saving.";return}
+ if(!name||!value||!source){$("specResult").textContent="Specification item, value, and source are all required.";return}
+ let records=readStore(store.specs);records.unshift({id:Date.now(),vehicle,name,value,unit,source,created:new Date().toISOString()});
+ if(!writeStore(store.specs,records)){$("specResult").textContent="Could not save. Browser storage may be unavailable or full.";return}
+ $("specValue").value="";$("specUnit").value="";$("specSource").value="";$("specResult").textContent="Saved as a technician-entered verified reference. It is not independently validated by Wrench.";renderSpecs()
+});
+function renderSpecs(){const root=$("specRecords");if(!root)return;const v=context();const records=readStore(store.specs).filter(x=>x.vehicle===v);root.innerHTML="";if(!v){root.textContent="Choose a vehicle to view its saved specs.";return}if(!records.length){root.textContent="No saved specs for this vehicle yet.";return}
+ records.forEach(r=>{const el=document.createElement("div");el.className="entry";el.innerHTML="<strong></strong><p></p><p class='small'></p><button class='btn' type='button'>Delete record</button>";el.querySelector("strong").textContent=r.name+" — "+r.value+" "+r.unit;el.querySelector("p").textContent="Source: "+r.source;el.querySelectorAll("p")[1].textContent=new Date(r.created).toLocaleString();el.querySelector("button").addEventListener("click",()=>{writeStore(store.specs,readStore(store.specs).filter(x=>x.id!==r.id));renderSpecs()});root.appendChild(el)})
+}
+$("searchSpecLinks").addEventListener("click",()=>{selectPane("library");window.scrollTo({top:document.querySelector(".tabs").offsetTop,behavior:"smooth"})});
+
+let currentWorkflow="";
+$("buildWorkflow").addEventListener("click",()=>{
+ const complaint=$("complaint").value.trim();if(!complaint){$("workflowResult").textContent="Describe the concern and observed conditions first.";return}
+ const sys=$("system").value,condition=$("condition").value,veh=context()||"Vehicle not selected";
+ const checklist=[
+"WORK ORDER CONTEXT\\nVehicle: "+veh+"\\nSystem: "+sys+"\\nCondition: "+condition+"\\nComplaint: "+complaint,
+"1. Verify the concern safely; document when it occurs and whether it is repeatable.",
+"2. Pre-scan all available modules. Save DTCs, status, freeze-frame, readiness, and relevant live data before clearing anything.",
+"3. Check basics applicable to this system: battery and power/grounds, fuses, connectors, fluid level/condition, leaks, harness damage, service history.",
+"4. Consult exact VIN/configuration OEM diagnostic flow, wiring diagram, specs, test conditions, and bulletins.",
+"5. Form competing hypotheses. Choose a measurement/test that distinguishes them; compare results to OEM limits. Record values and test setup.",
+"6. Isolate fault to root cause; avoid replacing parts based on code description alone. Follow OEM repair and safety steps.",
+"7. Verify repair under original conditions. Complete relearns/calibrations if prescribed, post-scan, and document final results.",
+"SAFETY: stop if the work involves uncontrolled vehicle movement, hot pressurized systems, SRS, fuel hazards, or HV systems without correct procedure/training."
+ ].join("\\n\\n");
+ currentWorkflow=checklist;$("workflowResult").textContent=checklist
+});
+$("copyWorkflow").addEventListener("click",async()=>{if(!currentWorkflow){$("workflowResult").textContent="Build the checklist first.";return}try{await navigator.clipboard.writeText(currentWorkflow);$("workflowResult").textContent+="\\n\\nCopied to clipboard."}catch(e){$("workflowResult").textContent+="\\n\\nClipboard unavailable in this browser. Select and copy the text manually."}});
+$("saveWorkflow").addEventListener("click",()=>{if(!currentWorkflow){$("workflowResult").textContent="Build the checklist first.";return}const notes=readStore(store.notes);notes.unshift({id:Date.now(),title:"Diagnostic workflow · "+context(),category:"Diagnostic",text:currentWorkflow,vehicle:context(),created:new Date().toISOString()});if(writeStore(store.notes,notes)){$("workflowResult").textContent+="\\n\\nSaved into job notes."}else $("workflowResult").textContent+="\\n\\nCould not save to browser storage."});
+
+$("saveNote").addEventListener("click",()=>{
+ const text=$("noteText").value.trim();if(!text){$("noteResult").textContent="Write some job notes first.";return}
+ const notes=readStore(store.notes);notes.unshift({id:Date.now(),title:$("noteTitle").value.trim()||"Untitled job note",category:$("noteCategory").value,text,vehicle:context(),created:new Date().toISOString()});
+ if(writeStore(store.notes,notes)){$("noteResult").textContent="Saved to this browser on this device.";renderNotes()}else $("noteResult").textContent="Save failed; browser storage unavailable."
+});
+function renderNotes(){const root=$("noteRecords");root.innerHTML="";const records=readStore(store.notes);if(!records.length){root.textContent="No saved job notes.";return}
+ records.forEach(n=>{const el=document.createElement("div");el.className="entry";el.innerHTML="<strong></strong><p></p><p></p><button class='btn'>Open in editor</button> <button class='btn'>Delete</button>";el.querySelector("strong").textContent=n.title+" · "+n.category;el.querySelectorAll("p")[0].textContent=n.vehicle||"No vehicle context";el.querySelectorAll("p")[1].textContent=new Date(n.created).toLocaleString()+"\\n"+n.text;const bs=el.querySelectorAll("button");bs[0].addEventListener("click",()=>{$("noteTitle").value=n.title;$("noteCategory").value=n.category;$("noteText").value=n.text;selectPane("notes");window.scrollTo({top:document.querySelector(".tabs").offsetTop,behavior:"smooth"})});bs[1].addEventListener("click",()=>{writeStore(store.notes,readStore(store.notes).filter(x=>x.id!==n.id));renderNotes()});root.appendChild(el)})
+}
+$("clearNotes").addEventListener("click",()=>{$("noteTitle").value="";$("noteText").value="";$("noteResult").textContent="Editor cleared; saved notes remain."});
+$("exportNotes").addEventListener("click",()=>{const data={app:"Wrench Toolbox",version:"2.0",exported:new Date().toISOString(),notes:readStore(store.notes),specs:readStore(store.specs)};const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="wrench-backup-"+new Date().toISOString().slice(0,10)+".json";a.click();URL.revokeObjectURL(a.href);$("noteResult").textContent="Backup export started."});
+
+const libSearch=$("librarySearch"),libRoot=$("libraryResults");
+function renderLibrary(){const q=libSearch.value.trim().toLowerCase();libRoot.innerHTML="";const matches=REF_TOPICS.filter(([title,body])=>(title+" "+body).toLowerCase().includes(q));if(!matches.length){libRoot.textContent="No topics match. Try another term.";return}matches.forEach(([title,body])=>{const e=document.createElement("div");e.className="entry";const strong=document.createElement("strong");strong.textContent=title;const p=document.createElement("p");p.textContent=body;e.append(strong,p);libRoot.appendChild(e)})}
+libSearch.addEventListener("input",renderLibrary);renderLibrary();renderNotes();renderSpecs();
+</script>
+</body></html>
